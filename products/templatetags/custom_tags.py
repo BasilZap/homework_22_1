@@ -9,3 +9,19 @@ def cut_text(val: str):
         return val[:100]
     else:
         return val
+
+
+@register.filter()
+def mediapath(val):
+    if val:
+        return f'/media/{val}'
+    else:
+        return '#'
+
+
+@register.simple_tag()
+def mediapath(val):
+    if val:
+        return f'/media/{val}'
+    else:
+        return '#'
