@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from products.models import Category, Product
+from products.models import Product
 
 
+# Формируем отображение продуктов на странице index
 def index(request):
     context = {
         'object_list': Product.objects.all(),
@@ -10,6 +11,7 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 
+# Формируем отображение продукта на странице product
 def product(request, pk):
     product_item = Product.objects.get(pk=pk)
     context = {

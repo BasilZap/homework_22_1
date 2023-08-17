@@ -3,6 +3,7 @@ from django.db import models
 NULLABLE = {'blank': True, 'null': True}
 
 
+# Описание модели Категория
 class Category(models.Model):
     category_name = models.CharField(max_length=100, verbose_name='Название')
     category_description = models.TextField(verbose_name='Описание')
@@ -15,6 +16,7 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
+# Описание модели Продукт
 class Product(models.Model):
     product_name = models.CharField(max_length=100, verbose_name='Название')
     product_description = models.TextField(verbose_name='Описание')
