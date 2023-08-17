@@ -1,5 +1,5 @@
 {% extends 'products/base.html' %}
-
+{% load custom_tags %}
 {% block content %}
 
 <div class="row">
@@ -19,7 +19,7 @@
         <div class="card mb-4 box-shadow">
            <div class="card-body">
                 <p class="font-weight-bold">{{ object.category }} - {{ object.product_name }}</p>
-                <p class="text-justify">{{ object.product_description|slice:"100:" }}</p>
+                <p class="text-justify">{{ object.product_description | cut_text }}</p>
                 <p class="text-justify">Цена всего - {{ object.price }} руб.</p>
                 <p class="font-weight-light">Дата производства - {{ object.creation_date }} </p>
                 <p class="font-weight-light">Дата поступления в магазин - {{ object.change_date }} </p>
