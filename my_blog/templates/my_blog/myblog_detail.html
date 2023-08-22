@@ -1,0 +1,34 @@
+{% extends 'products/base.html' %}
+{% load custom_tags %}
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+            <img src="{% mediapath object.image %}"
+                 alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">{{ object.title }} - {{ object.slug }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <p class="font-weight-bold">{{ object.product_name }}</p>
+                <p class="text-justify">{{ object.body }}</p>
+                <p class="font-weight-light">Дата создания - {{ object.creation_date }} </p>
+                <p class="font-weight-light">Статью посмотрели - {{ object.view_count }} </p>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'my_blog:list' %}" type="button"
+       class="btn btn-sm btn-outline-secondary">К статьям</a>
+</div>
+
+{% endblock %}
