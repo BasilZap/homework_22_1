@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 
 register = template.Library()
 
@@ -16,7 +17,7 @@ def cut_text(val: str):
 @register.filter()
 def mediapath(val):
     if val:
-        return f'/media/{val}'
+        return f'{settings.MEDIA_URL}{val}'
     else:
         return '#'
 
