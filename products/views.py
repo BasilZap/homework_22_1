@@ -1,23 +1,22 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from products.models import Product
 from django.urls import reverse_lazy, reverse
+from products.forms import ProductForm
 
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ('product_name', 'product_description', 'image_preview', 'category', 'price', 'creation_date',
-              'change_date')
+    form_class = ProductForm
     success_url = reverse_lazy('products:list')
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = ('product_name', 'product_description', 'image_preview', 'category', 'price', 'creation_date',
-              'change_date')
+    form_class = ProductForm
 
     def get_success_url(self):
         """
-        Формируем возврат на просмотр статьи после редактирования
+        Формируем возврат на просмотр продукта после редактирования
         """
         return reverse('products:view', args=[self.kwargs.get('pk')])
 
