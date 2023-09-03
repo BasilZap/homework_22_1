@@ -1,13 +1,35 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from products.models import Product
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy, reverse
 
 
-class ProductsListView(ListView):
+class ProductCreateView(CreateView):
     model = Product
-    template_name = 'products/index.html'
+    fields = ('product_name', 'product_description', 'image_preview', 'category', 'price', 'creation_date',
+              'change_date')
+    success_url = reverse_lazy('products:list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ('product_name', 'product_description', 'image_preview', 'category', 'price', 'creation_date',
+              'change_date')
+
+    def get_success_url(self):
+        """
+        Формируем возврат на просмотр статьи после редактирования
+        """
+        return reverse('products:view', args=[self.kwargs.get('pk')])
+
+
+class ProductListView(ListView):
+    model = Product
 
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = 'products/product.html'
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('products:list')
