@@ -1,8 +1,9 @@
 from django import forms
-from products.models import Product
+from products.models import Product, Version
 
 
 BANNED_NAMES = ('казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар')
+
 
 class ProductForm(forms.ModelForm):
 
@@ -19,3 +20,10 @@ class ProductForm(forms.ModelForm):
                                             f' продукт')
 
         return cleaned_data
+
+
+class VersionForm(forms.ModelForm):
+
+    class Meta:
+        model = Version
+        fields = '__all__'
