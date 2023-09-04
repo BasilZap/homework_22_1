@@ -18,6 +18,11 @@
 
             <div class="card-body">
                 <p class="card-text">{{ object.product_name }}</p>
+                {% for version in object.version_set.all %}
+                {% if version.is_active %}
+                    <p class="card-text">Активная версия: {{ version.version_number }}</p>
+                {% endif %}
+                {% endfor %}
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">

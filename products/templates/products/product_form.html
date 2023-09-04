@@ -2,11 +2,22 @@
 
 {% block content %}
 
-    <div class="row">
+<form method="post" enctype="multipart/form-data" class="row">
+
+
         <div class="col-6">
-            <div class="card">
+            <div class="card" >
+                <div class="card-header">
+                    <H5>
+                    {% if object %}
+                        Редактирование продукта
+                    {% else %}
+                        Создание продукта
+                    {% endif %}
+                    </H5>
+                </div>
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
+
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit" class="btn btn-outline-success">
@@ -17,10 +28,28 @@
                             {% endif %}
                         </button>
                         <a href="{% url 'products:list' %}" class="btn btn-outline-secondary">Отмена</a>
-                    </form>
+
                 </div>
             </div>
         </div>
+
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <H5>Версия продукта</H5>
+            </div>
+                <div class="card-body">
+                {{ formset.management_form }}
+                    {% for form in formset.forms %}
+                        {{ form.as_p }}
+                        {% if forloop.revcounter0 != 0 %}
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+        </div>
     </div>
+    </form>
 
 {% endblock %}
