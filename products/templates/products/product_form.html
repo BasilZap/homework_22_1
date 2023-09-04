@@ -7,6 +7,15 @@
 
         <div class="col-6">
             <div class="card" >
+                <div class="card-header">
+                    <H5>
+                    {% if object %}
+                        Редактирование продукта
+                    {% else %}
+                        Создание продукта
+                    {% endif %}
+                    </H5>
+                </div>
                 <div class="card-body">
 
                         {% csrf_token %}
@@ -28,12 +37,15 @@
     <div class="col-6">
         <div class="card">
             <div class="card-header">
-                Версия
+                <H5>Версия продукта</H5>
             </div>
                 <div class="card-body">
                 {{ formset.management_form }}
                     {% for form in formset.forms %}
                         {{ form.as_p }}
+                        {% if forloop.revcounter0 != 0 %}
+                            <hr>
+                        {% endif %}
                     {% endfor %}
                 </div>
         </div>

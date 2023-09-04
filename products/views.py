@@ -5,16 +5,19 @@ from django.forms import inlineformset_factory
 from products.forms import ProductForm, VersionForm
 
 
+# формируем представление на создания продукта
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products:list')
 
 
+# формируем представление на редактирование продукта
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
 
+    # Добавление представления с версиями продукта
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
@@ -42,6 +45,7 @@ class ProductUpdateView(UpdateView):
         return reverse('products:edit', args=[self.kwargs.get('pk')])
 
 
+# формируем представление на просмотр списка продуктов
 class ProductListView(ListView):
     model = Product
 
@@ -50,10 +54,12 @@ class ProductListView(ListView):
         return context_data
 
 
+# формируем представление на просмотр продукта
 class ProductDetailView(DetailView):
     model = Product
 
 
+# формируем представление на удаление продукта
 class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('products:list')
