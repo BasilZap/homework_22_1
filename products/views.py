@@ -11,6 +11,13 @@ class ProductCreateView(CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('products:list')
 
+# Присвоение пользователя созданному продукту
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.creator = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
 
 # формируем представление на редактирование продукта
 class ProductUpdateView(UpdateView):
