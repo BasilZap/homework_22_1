@@ -143,5 +143,5 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'zapr9@yandex.ru'
-EMAIL_HOST_PASSWORD = 'qdnoimxuebseduto'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_SSL = True
