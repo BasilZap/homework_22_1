@@ -23,12 +23,22 @@
 
                 <div>
 
-                    <a href="{% url 'users:generate_password' %}" class="btn btn-outline-secondary">Сгенерировать пароль</a>
-<!--                        <input type="checkbox" id="pass_gen" name="pass_gen" checked />-->
-<!--                        <label for="pass_gen">Сгенерировать пароль</label>-->
+                    <a href="{% url 'users:generate_password' %}" class="btn btn-outline-primary">Сгенерировать пароль</a>
+
+                    {% if not user.is_verified and not user.verify_code %}
+                    <a href="{% url 'users:get_verify' %}" class="btn btn-outline-secondary">Верифицировать профиль</a>
+                    {% endif %}
+
+                    {% if user.verify_code and not user.is_verified %}
+                    <p class="text-danger">Ссылка для верификации отправлена Вам на почту {{ user.email }}</p>
+                    {% endif %}
+
+                    {% if user.is_verified  %}
+                    <p class="text-success">Почта подтверждена</p>
+                    {% endif %}
                 </div>
                 </div>
             </div>
         </div>
-
+</form>
 {% endblock %}
