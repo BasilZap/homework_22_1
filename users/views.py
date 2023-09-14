@@ -87,6 +87,36 @@ def verify_email(request):
     return render(request, 'users/verify_email.html')
 
 
+def password_recover(request):
+    """
+    Контроллер верификации пользователя перешедшего по ссылке
+    из email
+    """
+    # Если метод POST проверяем наличие пользователя с указанным email в базе
+    if request.method == 'POST':
+        user_email = request.POST.get('email')
+        print(user_email)
+
+        # Если пользователь найден - генерируем новый пароль, сохраняем и отправляем по почте
+        if User.objects.get(email=user_email):
+            user = User.objects.get(email=user_email)
+            print(user.pk)
+
+            new_pass = ''.join(str(randint(0, 9)) for _ in range(8))
+            send_mail(
+                subject='Смена пароля',
+                message=f'Ваш новый пароль {new_pass}',
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[user.email]
+            )
+            # Запоминаем и сохраняем пароль
+            user.set_password(new_pass)
+            user.save()
+            # Перенаправляем на страницу входа
+            return redirect(reverse('users:login'))
+    return render(request, 'users/password_recover.html')
+
+
 def get_verify(request):
     """
     Контроллер запроса на верификацию. Генерирует проверочный код

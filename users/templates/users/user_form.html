@@ -23,8 +23,6 @@
 
                 <div>
 
-                    <a href="{% url 'users:generate_password' %}" class="btn btn-outline-primary">Сгенерировать пароль</a>
-
                     {% if not user.is_verified and not user.verify_code %}
                     <a href="{% url 'users:get_verify' %}" class="btn btn-outline-secondary">Верифицировать профиль</a>
                     {% endif %}
