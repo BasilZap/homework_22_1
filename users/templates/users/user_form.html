@@ -1,0 +1,42 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data" class="row">
+
+
+        <div class="col-6">
+            <div class="card" >
+                <div class="card-header">
+                    <H5>
+                    Вход
+                    </H5>
+                </div>
+                <div class="card-body">
+
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-outline-success">Сохранить</button>
+
+                </div>
+                <div class="col-6 mb-5">
+
+                <div>
+
+                    {% if not user.is_verified and not user.verify_code %}
+                    <a href="{% url 'users:get_verify' %}" class="btn btn-outline-secondary">Верифицировать профиль</a>
+                    {% endif %}
+
+                    {% if user.verify_code and not user.is_verified %}
+                    <p class="text-danger">Ссылка для верификации отправлена Вам на почту {{ user.email }}</p>
+                    {% endif %}
+
+                    {% if user.is_verified  %}
+                    <p class="text-success">Почта подтверждена</p>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+        </div>
+</form>
+{% endblock %}

@@ -1,19 +1,27 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from products.models import Product, Version
+from django.contrib.auth.mixins import LoginRequiredMixin
+from products.models import Product, Version, Category
 from django.urls import reverse_lazy, reverse
 from django.forms import inlineformset_factory
-from products.forms import ProductForm, VersionForm
+from products.forms import ProductForm, VersionForm, CategoryForm
 
 
 # формируем представление на создания продукта
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products:list')
 
+# Присвоение пользователя созданному продукту
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.creator = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
 
 # формируем представление на редактирование продукта
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
 
@@ -60,6 +68,14 @@ class ProductDetailView(DetailView):
 
 
 # формируем представление на удаление продукта
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('products:list')
+
+
+# формируем представление на создания продукта
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('products:category')
+

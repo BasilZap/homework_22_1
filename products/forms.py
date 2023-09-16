@@ -1,5 +1,5 @@
 from django import forms
-from products.models import Product, Version
+from products.models import Product, Version, Category
 
 
 BANNED_NAMES = ('казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар')
@@ -18,7 +18,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = '__all__'
+        exclude = ('creator',)
 
     # Метод валидации вводимого названия продукта
     def clean_product_name(self):
@@ -37,4 +37,11 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Version
+        fields = '__all__'
+
+
+class CategoryForm(StyleFormMixin, forms.ModelForm):
+
+    class Meta:
+        model = Category
         fields = '__all__'
