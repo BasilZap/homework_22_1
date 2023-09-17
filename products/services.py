@@ -3,6 +3,7 @@ from config.settings import CACHE_ENABLED
 from products.models import Category
 
 
+# Функция кэширования категорий продуктов
 def get_cache_categories():
     if CACHE_ENABLED is True:
         key = 'category_list'
