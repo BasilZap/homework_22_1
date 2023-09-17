@@ -30,6 +30,7 @@
                     <h4 class="text-white">Меню</h4>
                     <ul class="list-unstyled">
                         <li><a href="{% url 'products:list' %}" class="text-white">Главная</a></li>
+                        <li><a href="{% url 'products:categories_list' %}" class="text-white">Категории</a></li>
                         <li><a href="{% url 'my_blog:list' %}" class="text-white">Блог</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'users:logout' %}" class="text-white">Выйти</a></li>

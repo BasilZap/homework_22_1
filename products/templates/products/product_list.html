@@ -9,6 +9,8 @@
            class="btn btn-outline-success">Добавить продукт</a>
         <a href="{% url 'products:category' %}" type="button"
            class="btn btn-outline-success">Добавить категорию</a>
+        <a href="{% url 'products:categories_list' %}" type="button"
+           class="btn btn-outline-primary">Посмотреть категории</a>
         {% endif %}
     </div>
 </div>
@@ -22,6 +24,7 @@
 
             <div class="card-body">
                 <p class="card-text">{{ object.product_name }}</p>
+                <a href="#">{{ object.category }}</a>
                 <p class="card-text">Создатель - {{ object.creator|default:"Не задан" }}</p>
                 {% for version in object.version_set.all %}
                 {% if version.is_active %}

@@ -4,6 +4,8 @@ from products.models import Product, Version, Category
 from django.urls import reverse_lazy, reverse
 from django.forms import inlineformset_factory
 from products.forms import ProductForm, VersionForm, CategoryForm
+from django.shortcuts import render
+from products.services import get_cache_categories
 
 
 # формируем представление на создания продукта
@@ -79,3 +81,21 @@ class CategoryCreateView(CreateView):
     form_class = CategoryForm
     success_url = reverse_lazy('products:category')
 
+
+# Контроллер вывода списка категорий
+def categories_list(request):
+    context = {
+        'object_list': get_cache_categories(),
+        'title': 'Категории ПО',
+    }
+    return render(request, 'products/categories.html', context)
+
+
+# Контроллер вывода продуктов по категориям
+def categories_products(request, pk):
+    category_item = Category.objects.get(pk=pk)
+    context = {
+        'object_list': Product.objects.filter(category_id=pk),
+        'title': f'ПО категории - {category_item.category_name}',
+    }
+    return render(request, 'products/product_list.html', context)
